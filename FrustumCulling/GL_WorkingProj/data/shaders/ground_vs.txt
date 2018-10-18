@@ -1,0 +1,12 @@
+#version 150 core
+
+in vec3 s_pos;
+in vec3 s_normal;
+in vec3 s_uv;
+
+uniform mat4 ModelViewProjectionMatrix;
+
+void main()
+{
+	gl_Position = ModelViewProjectionMatrix * vec4(s_pos, 1.0);
+}

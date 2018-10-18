@@ -1,0 +1,20 @@
+#version 150 core
+
+in vec3 s_pos;
+in vec3 s_normal;
+in vec2 s_uv;
+
+uniform mat4 ModelViewProjectionMatrix;
+
+uniform samplerBuffer s_texture_0;
+
+out vec3 instance_color;
+
+void main()
+{
+//sample instance data from texture buffer
+	vec4 instance_pos = texelFetch(s_texture_0, gl_InstanceID*2);
+	instance_color = texelFetch(s_texture_0, gl_InstanceID*2+1).xyz;
+	
+	gl_Position = ModelViewProjectionMatrix * vec4(s_pos + instance_pos.xyz, 1.0);
+}
